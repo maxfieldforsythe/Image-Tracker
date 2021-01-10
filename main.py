@@ -5,9 +5,6 @@ import numpy as np
 # This function tries to find the 5-target pattern that looks like this
 #  0  1  2
 #  3     4
-# The input is a list of (x,y) locations of possible targets, where each location is
-# a numpy array of length 2. The output is a list of 5 targets in the proper order.
-# If 5 targets in the correct configuration is not found, it returns an empty list.
 def order_targets(allTargets):
     orderedTargets = []
     nTargets = len(allTargets)
@@ -35,7 +32,7 @@ def order_targets(allTargets):
                     d02 = np.linalg.norm(allTargets[i0] - allTargets[i2])
 
     # If the best distance from the midpoint is < 30% of the distance between
-	# the two other points, then we probably have a colinear set; otherwise not.
+    # the two other points, then we probably have a colinear set; otherwise not.
     if dMin / d02 > 0.3:
         return orderedTargets   # return an empty list
 
@@ -50,14 +47,7 @@ def order_targets(allTargets):
     if i4 is None:
         return []   #  return an empty list
 
-    # Now, check to see where p4 is with respect to p0,p1,p2.  If the
-    # signed area of the triangle p0-p2-p3 is negative, then we have
-    # the correct order; ie
-    #   0   1   2
-    #   3		4
-    # Otherwise we need to switch the order; ie
-    #   2	1	0
-    #   4		3
+    # Now, check to see where p4 is with respect to p0,p1,p2.
 
     # Signed area is the determinant of the 2x2 matrix [ p3-p0, p2-p0 ].
     p30 = allTargets[i3] - allTargets[i0]
